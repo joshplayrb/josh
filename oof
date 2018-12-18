@@ -1,0 +1,102 @@
+wait(0.02)
+plr = game.Players.LocalPlayer
+char = plr.Character
+mouse = plr:GetMouse()
+t = char["Torso"]
+head = char["Head"]
+h = char["Humanoid"]
+
+local Sound = Instance.new("Sound")
+Sound.SoundId = "rbxassetid://1219938290"
+Sound.Parent = head
+Sound.EmitterSize = 1000
+Sound.Looped = true
+Sound.Playing = true
+Eye = Instance.new("Part")
+Mesh = Instance.new("SpecialMesh")
+Eye.Anchored = true
+Eye.Size = Vector3.new(2, 2, 2)
+Eye.Parent = char
+Mesh.Scale = Vector3.new(3.35, 3.35, 3.35)
+Mesh.MeshId = "http://www.roblox.com/asset/?id=1185246"
+Mesh.TextureId = "http://www.roblox.com/asset/?id=28301740"
+Mesh.Parent = Eye
+mouse.KeyDown:connect(function(key)
+    if key == 'f' then
+        local Size = 1
+        local Part = Instance.new("Part")
+        local Beam1 = Instance.new("Part")
+        local Beam2 = Instance.new("Part")
+        local Beam1A = Instance.new("Attachment")
+        local Beam2A = Instance.new("Attachment")
+        local Beam = Instance.new("Beam")
+        local Sound = Instance.new("Sound")
+        Sound.Parent = Part
+        Sound.SoundId = "rbxassetid://144699494"
+        Sound.EmitterSize = 1000
+        Sound.Playing = true
+        Beam1.Size = Vector3.new(1,1,1)
+        Beam1.Anchored = true
+        Beam1.CanCollide = false
+        Beam1.Transparency = 1
+        Beam1.CFrame = Eye.CFrame
+        Beam1.Parent = char
+        Beam2.Size = Vector3.new(1,1,1)
+        Beam2.Anchored = true
+        Beam2.CanCollide = false
+        Beam2.Transparency = 1
+        Beam2.CFrame = mouse.Hit
+        Beam2.Parent = char
+        Beam1A.Parent = Beam1
+Beam2A.Parent = Beam2
+        Part.Parent = char
+        Part.Shape = "Ball"
+        Part.Name = "Explosion"
+        Part.Size = Vector3.new(Size, Size, Size)
+        Part.CFrame = mouse.Hit
+        Part.Material = "Neon"
+        Part.BrickColor = BrickColor.new('Lavender')
+        Part.Anchored = true
+        Beam.Parent = char
+        Beam.Attachment0 = Beam1A
+        Beam.Attachment1 = Beam2A
+        Beam.FaceCamera = true
+        Beam.Color = ColorSequence.new(BrickColor.new('Lavender').Color,BrickColor.new('Lavender').Color)
+        local loop = 25
+        repeat
+            Beam1.CFrame = Eye.CFrame
+            loop = loop - 1
+            Part.Size = Part.Size + Vector3.new(5,5,5)
+            Part.Touched:connect(function(part)
+                if part.Parent.ClassName == "Model" then
+                    if part.Parent.Name == plr.Name then
+                    else
+                        local a = part.Parent:GetChildren()
+                        for i = 1, #a do
+                            if a[i].ClassName == 'Humanoid' then
+                                a[i].Health = a[i].Health - 50
+                            end
+                        end
+                    end
+                end
+            end)
+            wait(0.01)
+        until loop == 0
+        Part:Destroy()
+        Beam:Destroy()
+        Beam1:Destroy()
+        Beam2:Destroy()
+    end
+    if key == 'q' then
+        h.WalkSpeed = 16+44
+    else
+        if key == 'e' then
+            h.WalkSpeed = 16
+        end
+    end
+end)
+while true do
+    Eye.CFrame = t.CFrame + Vector3.new(5, 0, 0)
+    wait(0.01)
+end
+July 3, 2018
